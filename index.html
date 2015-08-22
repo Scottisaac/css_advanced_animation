@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <style>
+        .line {
+            height: 1px;
+            width: 50vw;
+            border: 1px solid;
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            animation: rotate 1s infinite linear;
+        }
+
+        .circle {
+            border: 2px solid;
+            border-radius: 50%;
+            height: 20px;
+            width: 3vw;
+            position: absolute;
+        }
+
+        .moving-circle {
+            -webkit-animation: rightThenLeft 2s infinite linear;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        @-webkit-keyframes rightThenLeft {
+            0% {left: 0%;}
+            50% {left: 100%}
+            100% {left:0%}
+        }
+
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            $("#clickme").click(function(){
+                console.log('click working');
+                random_color();
+            });
+        });
+
+
+        function random_color(){
+            var hue = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+            var offset = $('.circle').offset();
+            console.log(offset);
+            var new_circle = $('<div>',{
+                class: "new-circle circle"
+            });
+            $(new_circle).css("background-color", hue);
+            $(new_circle).css({"top": offset.top , "left": offset.left});
+            $(new_circle).appendTo('body');
+
+
+        }
+    </script>
+</head>
+<body>
+
+<div class="line">
+    <div class="circle moving-circle"></div>
+</div>
+<button id="clickme" type="button">Click Me!</button>
+
+</body>
+</html>
